@@ -142,26 +142,14 @@ body {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(17, 20, 24, 0)
 }
-h6,
-.h6,
-h5,
-.h5,
-h4,
-.h4,
-h3,
-.h3,
-h2,
-.h2,
-h1,
-.h1 {
+h6,.h6,h5,.h5,h4,.h4,h3,.h3,h2,.h2,h1,.h1 {
     margin-top: 0;
     margin-bottom: .5rem;
     font-weight: 500;
     line-height: 1.2;
     color: var(--bs-heading-color)
 }
-h5,
-.h5 {
+h5,.h5 {
     font-size: 1.125rem
 }
 a {
@@ -175,41 +163,24 @@ label {
 button {
     border-radius: 0
 }
-input,
-button,
-select,
-optgroup,
-textarea {
+input,button,select,optgroup,textarea {
     margin: 0;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit
 }
 
-button,
-select {
+button,select {
     text-transform: none
 }
-button,
-[type=button],
-[type=reset],
-[type=submit] {
-    -webkit-appearance: button
+button,[type=button],[type=reset],[type=submit] {
+   
 }
 
-button:not(:disabled),
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled),
-[type=submit]:not(:disabled) {
+button:not(:disabled),[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled) {
     cursor: pointer
 }
-.container,
-.container-fluid,
-.container-xxl,
-.container-xl,
-.container-lg,
-.container-md,
-.container-sm {
+.container,.container-fluid,.container-xxl,.container-xl,.container-lg,.container-md,.container-sm {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     width: 100%;
@@ -372,8 +343,7 @@ button:not(:disabled),
     --bs-btn-disabled-bg: #3659cd;
     --bs-btn-disabled-border-color: #3659cd
 }
-.btn-lg,
-.btn-group-lg>.btn {
+.btn-lg,.btn-group-lg>.btn {
     --bs-btn-padding-y: 0.5rem;
     --bs-btn-padding-x: 1rem;
     --bs-btn-font-size: 1.125rem;
