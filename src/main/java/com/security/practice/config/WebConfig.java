@@ -34,7 +34,8 @@ public class WebConfig {
 		return http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(request ->{
-					request.requestMatchers("/home").permitAll();
+					request.requestMatchers("/css/**","/error/**").permitAll();
+					request.requestMatchers("/home","/signup").permitAll();
 					request.requestMatchers("/admin/**").hasRole("ADMIN");
 					request.requestMatchers("/user/**").hasRole("USER");
 					request.anyRequest().authenticated();

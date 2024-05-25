@@ -6,10 +6,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.security.practice.model.NewUser;
 import com.security.practice.repository.NewUserRepository;
 
+@Service
 public class NewUserService implements UserDetailsService{
 
 	@Autowired
