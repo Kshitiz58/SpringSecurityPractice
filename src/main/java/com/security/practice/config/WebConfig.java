@@ -4,19 +4,23 @@ package com.security.practice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+import com.security.practice.WebToken.JwtAuthenticationFilter;
 //import com.security.practice.repository.NewUserRepository;
 import com.security.practice.service.NewUserService;
 
@@ -28,18 +32,22 @@ public class WebConfig {
 	@Autowired
 	private  NewUserService newUserService;
 	
+	@Autowired
+	private JwtAuthenticationFilter jwtfilter;
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(request ->{
 					request.requestMatchers("/css/**","/error/**").permitAll();
-					request.requestMatchers("/home","/signup").permitAll();
+					request.requestMatchers("/home","/signup","/authenticate").permitAll();
 					request.requestMatchers("/admin/**").hasRole("ADMIN");
 					request.requestMatchers("/user/**").hasRole("USER");
 					request.anyRequest().authenticated();
 				})
-//				.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+				.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+				.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
 				.formLogin(httpSecurityFormLoginConfigurer ->{
 					httpSecurityFormLoginConfigurer
 					.loginPage("/login")
@@ -82,6 +90,11 @@ public class WebConfig {
 		provider.setUserDetailsService(newUserService);
 		provider.setPasswordEncoder(passwordEncoder());
 		return provider;
+	}
+	
+	@Bean
+	public AuthenticationManager authenticationManager() {
+		return new ProviderManager(authenticationProvider());
 	}
 
 }
